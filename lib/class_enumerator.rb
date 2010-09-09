@@ -1,7 +1,7 @@
 module ObjectSpace
   def self.classes
-    l = []
-    ObjectSpace.each_object(Class) { |c| l << c }
-    l
+    klasses = []
+    each_object(Class) { |c| klasses << c }
+    klasses
   end
 end
