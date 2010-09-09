@@ -1,11 +1,17 @@
 module InlineExamples
+  @@examples = {}
+
   def run_examples
     puts "running examples for #{self.name}"
-    # todo: run accumulated examples
+    @@examples[self].each do |e|
+      puts e[0]
+      puts e[1].call ? "pass!" : "fail!"
+    end
   end
 
-  def for_example(desc)
+  def for_example(desc, &block)
     puts "an example found: #{desc}"
-    # todo: accumulate example blocks
+    @@examples[self] ||= []
+    @@examples[self] << [desc, block]
   end
 end
