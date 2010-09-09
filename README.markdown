@@ -12,6 +12,13 @@ your code. (provided you actually run the tests)
 InlineExamples is in pre development phase, which reads **THIS IS AN
 UNUSABLE HACK**.  Looking forward to change that though.
 
+Getting started
+---------------
+
+Just go try
+
+    $ ruby bin/iex examples/bowling.rb
+
 InlineExamples lives in
 -----------------------
 
