@@ -6,12 +6,12 @@ require 'class_enumerator'
 if ARGV.empty?
   puts "$0 source/file.rb [, ...]"
 else
-  classes_after_load = ClassEnumerator.new(Object).classes
+  classes_after_load = ObjectSpace.classes
   ARGV.each do |source_file|
     classes_before_load = classes_after_load
     puts "loading #{source_file}"
     require source_file
-    classes_after_load = ClassEnumerator.new(Object).classes
+    classes_after_load = ObjectSpace.classes
     (classes_after_load - classes_before_load).each do |klass|
       puts "new class #{klass}"
       klass.run_examples
