@@ -1,11 +1,16 @@
 class Object
-  def contained_constants_of_type(type)
-    self.constants.map { |co| self.const_get(co) }.select { |co| co.is_a? type }
+  # All constants defined in this object and referencing to modules
+  def module_constants
+    self.constants.map do |constant|
+      self.const_get(constant)
+    end.select do |constant|
+      constant.is_a? Module
+    end
   end
-  def contained_classes; self.contained_constants_of_type(Class); end
-  def contained_modules; self.contained_constants_of_type(Module); end
 end
 
+# List all classes (or modules) inside given class (or module)
+# recursively
 class ClassEnumerator
   def initialize(klass=Object)
     @module  = klass
@@ -18,19 +23,19 @@ class ClassEnumerator
   end
 
   def modules
-    @modules ||= enumerate_modules(@module)
+    @modules ||= traverse_modules(@module)
   end
 
   private
 
-  def enumerate_modules(klass=nil)
+  def traverse_modules(klass=nil)
     klass ||= @module
     @modules ||= []
-    contained_modules = klass.contained_modules
-    new_modules = contained_modules - @modules
+    module_constants = klass.module_constants
+    new_modules = module_constants - @modules
     @modules += new_modules
     new_modules.each do |m|
-      enumerate_modules(m)
+      traverse_modules(m)
     end
     @modules.uniq
   rescue => e
