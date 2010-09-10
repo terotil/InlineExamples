@@ -1,13 +1,16 @@
 InlineExamples
 ==============
 
-Tired of updating your code examples?  Sample code, examples, can
-serve you as both documentation and tests.(*  And you'll have the added
-bonus of your developer documentation not falling out of sync with
-your code. (provided you actually run the tests)
+Sample code, examples, can serve as both documentation and tests.  (In
+RSpec tradition tests are actually called "examples".)  Separating
+tests from code helps you keep your code shorter and cleaner.  But it
+may also keep you from cleaning up your tests.  They become the "scary
+basement".
 
-*) In some traditions unit tests are actually called "examples". How
-   convinient!
+What if the tests/examples would be mixed in your code?  Would you
+write better tests if you'd know more people would look at them?
+Would you write better examples (of the intended and common usage of
+your lib) if your examples would actually run with tests?
 
 InlineExamples is in pre development phase, which reads **THIS IS AN
 UNUSABLE HACK**.  Looking forward to change that though.
