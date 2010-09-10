@@ -1,22 +1,19 @@
 #!/usr/bin/env ruby
 
 $: << File.expand_path(File.dirname(__FILE__) + '/../lib/')
-require 'class_enumerator'
+require 'inline_examples'
+include InlineExamples
 
 if ARGV.empty?
   puts "$0 source/file.rb [, ...]"
 else
-  classes_after_load = ObjectSpace.classes
-  ARGV.each do |source_file|
-    classes_before_load = classes_after_load
-    puts "loading #{source_file}"
-    require source_file
-    classes_after_load = ObjectSpace.classes
-    (classes_after_load - classes_before_load).each do |klass|
-      puts "new class #{klass}"
-      klass.run_examples
+  with_example_accumulation do
+    ARGV.each do |source_file|
+      puts "loading #{source_file}"
+      require source_file
     end
   end
+  run_examples
 end
 
 
